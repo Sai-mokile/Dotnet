@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+       
+        {
+            "name": "Launch .NET Core Backend",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/My-app/bin/Debug/net7.0/My-app.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/My-app",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}
