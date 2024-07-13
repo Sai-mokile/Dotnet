@@ -19,4 +19,4 @@ const json = [
           }
 ]
 
-export { json }
+export default json
