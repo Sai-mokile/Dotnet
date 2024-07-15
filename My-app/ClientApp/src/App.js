@@ -10,6 +10,7 @@ export default function App() {
   return (
     <>
       <Routes>
+        
         <Route path="/counter" element={<Counter />}></Route>
         <Route path="/" element={<Home />}></Route>
         {/* <Route path="/sai" element={<Sai />}></Route> */}
