@@ -32,3 +32,74 @@ code {
 .rdrDay .rdrDayToday{
 color:white ;
 }
+
+.bg-img {
+  background-image: url(https://www.maman-corp.com/assets/img/solutions-header.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  background-size: 100%;
+}
+.signup-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+  background-color:  rgba(21, 19, 19, 0.162);
+  margin: auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 40%;
+ 
+  position: absolute;
+  top: 15%;
+  transform: translate(75%);
+}
+
+.signup-head{
+color: rgb(0, 0, 0);
+font-family: "Lato", sans-serif; 
+font-weight: 700;
+font-size: 30px;
+text-align: center;
+padding-top: 10px ;
+}
+.input-box {
+  margin-top: 20px;
+  border: 0px;
+  padding-bottom: -10px;
+  background: none;
+  height: 2.5rem;
+  width: 60%;
+  outline: none;
+  border-bottom: 3px solid black;
+  
+}
+
+.form-inputs{
+  display: flex;
+  flex-direction: column;
+ align-items: center;
+
+}
+.signup-button {
+  background-color: #000000;
+  color: white;
+  font-family: sans-serif;
+  height: 44px;
+  margin-bottom: 20px;
+  width: 30%;
+  border-radius: 10px;
+}
+.err-msg{
+  font-size: 10px;
+  color: red;
+ margin-top:0 ;
+align-self: flex-start;
+margin-left: 20%;
+background-color: #0101010f;
+padding: 0 4px;
+
+}

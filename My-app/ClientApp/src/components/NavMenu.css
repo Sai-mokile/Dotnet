@@ -50,7 +50,7 @@ html {
 .nav-links a:hover {
   color: #0d2c89;
   padding-bottom: 12px;
-  border-bottom: 2px solid #0d2c89;
+  border-bottom: 2px solid #0E588A;
 }
 
 .nav-toggle {
@@ -92,6 +92,7 @@ html {
     display: flex;
     margin-left: auto;
     margin-top: -3rem;
+    color: black;
 }
 
 }
