@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div>
-      <nav className='navbar'>
+      <nav className='navbar col-12'>
         <div className='nav-section'>
           <img src='https://res.cloudinary.com/dfaxgzkuc/image/upload/v1721017584/qqkdyoxfn3dwoau9cpxc.png' alt='Logo' className='nav-logo' />
           <button className='nav-toggle' onClick={toggleMenu}>
@@ -22,6 +22,7 @@ const Header = () => {
             <Link to="#home">HOME</Link>
             <Link to="#about">ABOUT US</Link>
             <Link to="#contact">CONTACT US</Link>
+            <Link to="#service">OUR SERVICE</Link>
             <Link to="/signup">SIGN UP</Link>
           </div>
         </div>

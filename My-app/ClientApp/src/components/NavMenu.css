@@ -98,10 +98,55 @@ html {
 }
 
 .home-card{
-  margin-top: 10px;
+  margin-top: 10%;
 }
 .we-prov{
   color: black;
-  padding-left: 5rem;
+ text-align: center;
+ font-size: large;
+ padding-top: 20px;
   
+}
+.main-heading{
+  color: #D62323;
+   font-family: "Lato", sans-serif; 
+   font-weight: bold;
+   text-align: center;
+}
+.count-num{
+
+    font-size: 1.25rem;
+    padding-left: 20%;
+    font-weight: 700;
+}
+.content-heading {
+  color: #D62323;
+  font-size: xxx-large;
+  padding-left: 20%;
+}
+.content-img{
+  padding-left:30%;
+}
+.content-para{
+
+  padding-left: 20%;
+  color: darkgrey;
+  padding-top: 20px;
+}
+.content-para-right{
+
+  
+  color: darkgrey;
+  padding-top: 20px;
+}
+.content-heading-right {
+  color: #d62323;
+  font-size: xxx-large;
+  
+}
+.count-num-right{
+
+  font-size: 1.25rem;
+  
+  font-weight: 700;
 }

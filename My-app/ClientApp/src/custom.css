@@ -13,6 +13,11 @@ a {
 code {
   color: #E01A76;
 }
+body {
+  overflow-x:visible;
+  margin: 0;
+  padding: 0;
+}
 
 .btn-primary {
   color: #fff;
