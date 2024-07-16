@@ -49,7 +49,7 @@ const SignUp = () => {
     if (validate()) {
       navigate('/')
       
-      alert("Sign Up successfully");
+      
     }
   };
 
