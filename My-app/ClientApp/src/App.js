@@ -5,6 +5,7 @@ import { Counter } from "./components/Counter";
 import { Home } from './components/Home';
 import SignUp from './Account/SignUp';
 import Header from './components/Header';
+import LogIn from './Account/LogIn';
 
 export default function App() {
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/" element={<Home />}></Route>
         {/* <Route path="/sai" element={<Sai />}></Route> */}
        < Route path="/signup" element={<SignUp/>} />
+       <Route path='/login' element={<LogIn/>}/>
       </Routes>
     </>
   );

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../custom.css';
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -9,6 +8,11 @@ const SignUp = () => {
     password: "",
     phoneno: ""
   });
+
+  const [name, setName]= useState("");
+  const [email, setEmail]= useState("");
+  const [phone, setPhone]= useState("");
+  const [password, setPassword]= useState("");
 
   const [errors, setErrors] = useState({});
 
@@ -73,10 +77,27 @@ const SignUp = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (validate()) {
-      navigate('/');
-    }
-  };
+
+    let formData = new FormData();
+    formData.append("name", name);
+    formData.append("Email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+
+    fetch("api/account/signup", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text()) // Adjust this based on your expected response type (text, json, etc.)
+    .then(data => {
+       alert(data);
+        // Handle success - maybe display a message or redirect
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // Handle error - maybe display an error message
+    });
+};
 
   const userRef = useRef(null);
 
@@ -85,6 +106,10 @@ const SignUp = () => {
       userRef.current.focus();
     }
   }, []);
+  const handleLogIn =(e)=>{
+    e.preventDefault();
+    navigate("/login");
+  }
 
   return (
     <div>
@@ -96,17 +121,18 @@ const SignUp = () => {
           <form onSubmit={submitHandler} autoComplete='off'>
             <div className='form-inputs'>
               <input className='input-box'
-                type='text' name='username' value={form.username} placeholder='Username' ref={userRef} onChange={handleChange} />
+                type='text' name='username' value={form.username} placeholder='Username' ref={userRef} onChange={(e)=>setName(e.target.value)} />
               <p className='err-msg'>{errors.username}</p>
-              <input className='input-box' type='email' name='email' placeholder='Email' value={form.email} onChange={handleChange} />
+              <input className='input-box' type='email' name='email' placeholder='Email' value={form.email} onChange={(e)=>setEmail(e.target.value)} />
               <p className='err-msg'>{errors.email}</p>
-              <input className='input-box' type='tel' name='phoneno' value={form.phoneno} pattern="[0-9]*" placeholder='Phone Number' onChange={handleChange} />
+              <input className='input-box' type='tel' name='phoneno' value={form.phoneno} pattern="[0-9]*" placeholder='Phone Number' onChange={(e)=>setPhone(e.target.value)}/>
               <p className='err-msg'>{errors.phoneno}</p>
-              <input className='input-box' placeholder='Create Password' type='password' name='password' value={form.password} onChange={handleChange} />
+              <input className='input-box' placeholder='Create Password' type='password' name='password' value={form.password} onChange={(e)=>setPassword(e.target.value)} />
               <p className='err-msg'>{errors.password}</p>
               <button className='signup-button'>Sign Up</button>
             </div>
           </form>
+          <p className='no_acc'>Already have an Account ? <span onClick={handleLogIn} className='reg-now'>LogIn Now</span></p>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ const Header = () => {
             <Link to="#about">ABOUT US</Link>
             <Link to="#contact">CONTACT US</Link>
             <Link to="#service">OUR SERVICE</Link>
-            <Link to="/signup">SIGN UP</Link>
+            <Link to="/login">LOG IN</Link>
           </div>
         </div>
       </nav>

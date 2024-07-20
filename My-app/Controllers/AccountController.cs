@@ -30,8 +30,24 @@ public class AccountController : Controller
 
         return Json(json);
     }
+   [Route("signup")]
+[HttpPost]
+public string SignUp(IFormCollection frmcl)
+{
+    string email = frmcl["Email"];
+    string name = frmcl["name"];
+    string phone = frmcl["phone"];
+    string password = frmcl["password"];
+    
+    // Call the CreateUserAccount method and store the result
+    string res = _account.CreateUserAccount(name, email, password, phone);
+
+    // Return the result
+    return res;
+}
     
 }
+
 }
 
 

@@ -42,6 +42,7 @@ namespace My_app.BAL
                     }
                 }
             }
+            // InsertUserAccount
             catch (Exception ex)
             {
                 // Handle exceptions here
@@ -50,5 +51,45 @@ namespace My_app.BAL
 
             return result;
         }
+
+      public string CreateUserAccount(string UserName, string Email, string Password, string Phone)
+{
+    string result = "";
+
+    try
+    {
+        using (SqlConnection conn = new SqlConnection(_connection))
+        {
+            using (SqlCommand cmd = new SqlCommand("InsertUserAccount", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserName", UserName);
+                cmd.Parameters.AddWithValue("@Email", Email);
+                cmd.Parameters.AddWithValue("@Password", Password);
+                cmd.Parameters.AddWithValue("@Phone", Phone);
+
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    result = "Account created successfully";
+                }
+                else
+                {
+                    result = "Failed to create account";
+                }
+            }
+        }
     }
+    catch (Exception ex)
+    {
+        result = "Error: " + ex.Message;
+    }
+
+    return result;
+}
+    }
+
+    
 }

@@ -90,14 +90,14 @@ padding-top: 10px ;
 
 }
 .signup-button {
-  background-color: #000000;
+  background-color: #000000c3;
   color: white;
   margin-top: 16px;
   font-family: sans-serif;
   height: 44px;
   margin-bottom: 20px;
   width: 30%;
-  border-radius: 10px;
+ 
 }
 .err-msg{
   font-size: 10px;
@@ -109,4 +109,72 @@ background-color: #0101010f;
 padding: 0 4px;
 
 }
+.bg_l{
+  background-image: url("https://www.maman-corp.com/admin/wp-content/uploads/2018/05/IMG_0214-1333x1000.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  
+}
+
+.log_card{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+  background-color:  #ffffffbc;
+  margin: auto;
+ 
+  height: fit-content;
+  width: 35%;
+ 
+  position: absolute;
+  top: 15%;
+  transform: translate(75%);
+}
+.login-head{
+  color: rgb(0, 0, 0);
+font-family: "Lato", sans-serif; 
+font-weight: 700;
+font-size: 28px;
+text-align: center;
+padding-top: 10px ;
+}
+.no_acc{
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+.reg-now{
+  color: #1861ac;
+  cursor: pointer;
+}
+
+.input-bo {
+  margin-top: 20px;
+  border: 0px;
+  background: none;
+  height: 2.5rem;
+  width: 60%;
+  outline: none;
+  border-bottom: 3px solid black;
+  margin-bottom: 40px;
+  
+}
+.err-msglog{
+  font-size: 10px;
+  color: red;
+ margin-top:-38px;
+align-self: flex-start;
+margin-left: 20%;
+background-color: #0101010f;
+padding: 0 4px;
+
+}
+
+
+
 
