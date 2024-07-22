@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
 using My_app.BAL;
+using Microsoft.AspNetCore.Http;
 
 
 
@@ -14,7 +15,10 @@ namespace My_app.Controllers{
 public class AccountController : Controller
 {
 
+
  private readonly Account _account;
+
+
     public AccountController(IConfiguration configuration)
 {
     _account = new Account(configuration); // Ensure 'configuration' is not null
@@ -49,30 +53,27 @@ public string SignUp(IFormCollection frmcl)
 [HttpGet]
 public IActionResult Login(string emailOrPhone, string password)
 {
-    try
-    {
-        // Call the AuthenticateUser method and store the result
-        string result = _account.AuthenticateUser(emailOrPhone, password);
+    var result = _account.AuthenticateUser(emailOrPhone, password);
 
-        if (result == "Login successful")
-        {
-            return Ok(result); // HTTP 200 OK
-        }
-        else
-        {
-            return Unauthorized(result); // HTTP 401 Unauthorized
-        }
-    }
-    catch (Exception ex)
+    if (result.Code == 1)
     {
-        // Log the exception (ex) here
-        return StatusCode(500, "Internal server error: " + ex.Message); // HTTP 500 Internal Server Error
-    }
-}
+        HttpContext.Session.SetString("Email", result.Email);
+        HttpContext.Session.SetString("UserName", result.UserName);
+        // HttpContext.Session.SetBoolean("Auth", true); // Corrected method name to SetBoolean
+        HttpContext.Session.SetString("Phone", result.Phone);
+result.Message = "Looged in successfully";
 
+    }
+    else
+    {
+         result.Code = 0;
+         result.Message = "Please Try again";
+    }
+    return Ok(result);
 }
 
 
+}
 }
 
 

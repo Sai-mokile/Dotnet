@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using My_app.DAL;
 
 namespace My_app.BAL
 {
@@ -11,6 +12,8 @@ namespace My_app.BAL
     {
         private readonly IConfiguration _configuration;
         private readonly string _connection;
+
+        
 
         public Account(IConfiguration configuration)
         {
@@ -90,9 +93,9 @@ namespace My_app.BAL
     return result;
 }
 
-public string AuthenticateUser(string emailOrPhone, string password)
+public Users AuthenticateUser(string emailOrPhone, string password)
 {
-    string result = "";
+    Users obj = new Users();
 
     try
     {
@@ -105,31 +108,38 @@ public string AuthenticateUser(string emailOrPhone, string password)
                 cmd.Parameters.AddWithValue("@Password", password);
 
                 conn.Open();
-                var userExists = (int)cmd.ExecuteScalar();
 
-                if (userExists > 0)
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = "Login successful";
-                }
-                else
-                {
-                    result = "Invalid email/phone or password";
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                           obj.Code = reader.IsDBNull(reader.GetOrdinal("Code")) ? 0 : reader.GetInt32(reader.GetOrdinal("Code"));
+                           obj.Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? string.Empty : reader.GetString(reader.GetOrdinal("Email"));
+                           obj.UserName = reader.IsDBNull(reader.GetOrdinal("UserName")) ? string.Empty : reader.GetString(reader.GetOrdinal("UserName"));
+                           obj.Phone = reader.IsDBNull(reader.GetOrdinal("Phone")) ? string.Empty : reader.GetString(reader.GetOrdinal("Phone"));
+                            // obj.Message = reader.IsDBNull(reader.GetOrdinal("Message")) ? string.Empty : reader.GetString(reader.GetOrdinal("Message"));
+                            
+                           
+                        }
+                    }
+                    else
+                    {
+                        obj.Code = 1; // Set custom error code for invalid credentials
+                        obj.Message = "Invalid email/phone or password";
+                    }
                 }
             }
         }
     }
-    catch (SqlException sqlEx)
-    {
-        // Log the SQL exception (sqlEx) here
-        result = "Database error: " + sqlEx.Message;
-    }
     catch (Exception ex)
     {
-        // Log the general exception (ex) here
-        result = "Error: " + ex.Message;
+        obj.Code =1; // Set error code for exception
+        obj.Message = "Error: " + ex.Message;
     }
 
-    return result;
+    return obj;
 }
 
 
