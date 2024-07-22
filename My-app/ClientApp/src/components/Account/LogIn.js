@@ -10,6 +10,8 @@ const LogIn = () => {
   }];
   const [login, setLogin] = useState({ identifier: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [password, setPassword] = useState('');
+  const [Email, setEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -36,22 +38,25 @@ const LogIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      const user = users.find(
-        (user) =>
-          (user.email === login.identifier || user.phoneno === login.identifier) &&
-          user.password === login.password
-      );
+    let formData = new FormData();
+    formData.append("Email", Email);
+    formData.append("password", password);
 
-      if (user) {
-        navigate('/');
-      } else {
-        setErrors({ identifier: 'Invalid email/phone number or password.' });
-      }
-    }
-  };
+    fetch("api/account/login", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.json)
+      .then(data => {
+        console.log(data);
+
+      })
+
+    navigate("/login");
+  }
+
 
   const logRef = useRef(null);
 
@@ -63,7 +68,7 @@ const LogIn = () => {
   const handleToSignUp = (e) => {
     e.preventDefault();
     navigate("/signup");
-  };
+  }
 
   return (
     <div className='bg_l'>
@@ -97,7 +102,7 @@ const LogIn = () => {
             <button className='signup-button' type='submit'>Log In</button>
           </div>
         </form>
-        <p className='no_acc'>Don't have an Account? <span onClick={handleToSignUp} className='reg-now'>Register Now</span></p>
+        <p className='no_acc'>Don't have an Account ? <span onClick={handleToSignUp} className='reg-now'>Register Now</span></p>
       </div>
     </div>
   );
