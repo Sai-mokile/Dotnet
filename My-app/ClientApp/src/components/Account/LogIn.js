@@ -2,8 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
+
+    const users =[{
+        email:"chinku@gmail.com",
+        phoneno:"7680908014",
+        password:"12345678"
+    }];
   const [login, setLogin] = useState({ identifier: '', password: '' });
   const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,19 +39,16 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      try {
-        const response = await fetch(`/login?emailOrPhone=${login.identifier}&password=${login.password}`);
-        const result = await response.json();
+      const user = users.find(
+        (user) =>
+          (user.email === login.identifier || user.phoneno === login.identifier) &&
+          user.password === login.password
+      );
 
-        if (result.Code === 1) {
-          // Navigate to the homepage on successful login
-          navigate('/');
-        } else {
-          // Set the error message from the backend
-          setErrors({ identifier: result.Message });
-        }
-      } catch (error) {
-        setErrors({ identifier: 'An error occurred during login. Please try again.' });
+      if (user) {
+        navigate('/');
+      } else {
+        setErrors({ identifier: 'Invalid email/phone number or password.' });
       }
     }
   };
@@ -56,8 +60,7 @@ const LogIn = () => {
       logRef.current.focus();
     }
   }, []);
-
-  const handleToSignUp = (e) => {
+  const handleToSignUp =(e)=>{
     e.preventDefault();
     navigate("/signup");
   };
@@ -73,22 +76,24 @@ const LogIn = () => {
               type='text'
               name='identifier'
               placeholder='Email or Phone Number'
-              value={login.identifier}
-              onChange={handleChange}
+              // value={login.identifier}
+              defaultValue={Email}
+              onChange={(e) => setEmail(e.target.value)}
               ref={logRef}
             />
             {errors.identifier && <p className='err-msglog'>{errors.identifier}</p>}
-            
+
             <input
               className='input-bo'
               type='password'
               name='password'
               placeholder='Password'
-              value={login.password}
-              onChange={handleChange}
+              defaultValue={password}
+              // value={login.password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {errors.password && <p className='err-msglog'>{errors.password}</p>}
-            
+
             <button className='signup-button' type='submit'>Log In</button>
           </div>
         </form>

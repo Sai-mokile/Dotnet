@@ -119,7 +119,7 @@ public Users AuthenticateUser(string emailOrPhone, string password)
                            obj.Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? string.Empty : reader.GetString(reader.GetOrdinal("Email"));
                            obj.UserName = reader.IsDBNull(reader.GetOrdinal("UserName")) ? string.Empty : reader.GetString(reader.GetOrdinal("UserName"));
                            obj.Phone = reader.IsDBNull(reader.GetOrdinal("Phone")) ? string.Empty : reader.GetString(reader.GetOrdinal("Phone"));
-                            // obj.Message = reader.IsDBNull(reader.GetOrdinal("Message")) ? string.Empty : reader.GetString(reader.GetOrdinal("Message"));
+                             obj.Message = reader.IsDBNull(reader.GetOrdinal("Message")) ? string.Empty : reader.GetString(reader.GetOrdinal("Message"));
                             
                            
                         }
