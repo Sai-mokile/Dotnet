@@ -41,7 +41,7 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("Email", emailOrPhone);
+    formData.append("emailOrPhone", Email);
     formData.append("password", password);
 
     fetch("api/account/login", {

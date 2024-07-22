@@ -51,7 +51,7 @@ public string SignUp(IFormCollection frmcl)
 }
     
 [Route("login")]
-[HttpGet]
+[HttpPost]
 public IActionResult Login(string emailOrPhone, string password)
 {
     var result = _account.AuthenticateUser(emailOrPhone, password);
