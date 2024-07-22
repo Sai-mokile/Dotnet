@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
 
-    const users =[{
-        email:"chinku@gmail.com",
-        phoneno:"7680908014",
-        password:"12345678"
-    }];
+  const users = [{
+    email: "chinku@gmail.com",
+    phoneno: "7680908014",
+    password: "12345678"
+  }];
   const [login, setLogin] = useState({ identifier: '', password: '' });
   const [errors, setErrors] = useState({});
 
@@ -60,7 +60,7 @@ const LogIn = () => {
       logRef.current.focus();
     }
   }, []);
-  const handleToSignUp =(e)=>{
+  const handleToSignUp = (e) => {
     e.preventDefault();
     navigate("/signup");
   };
