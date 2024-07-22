@@ -90,7 +90,7 @@ const SignUp = () => {
         console.error("Error:", error);
         // Handle error - maybe display an error message
       });
-      navigate("/login");
+      
   };
 
   useEffect(() => {

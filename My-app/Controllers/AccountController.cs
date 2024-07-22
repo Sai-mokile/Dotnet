@@ -49,7 +49,8 @@ public string SignUp(IFormCollection frmcl)
     // Return the result
     return res;
 }
-    [Route("login")]
+    
+[Route("login")]
 [HttpGet]
 public IActionResult Login(string emailOrPhone, string password)
 {
@@ -59,18 +60,20 @@ public IActionResult Login(string emailOrPhone, string password)
     {
         HttpContext.Session.SetString("Email", result.Email);
         HttpContext.Session.SetString("UserName", result.UserName);
-        // HttpContext.Session.SetBoolean("Auth", true); // Corrected method name to SetBoolean
         HttpContext.Session.SetString("Phone", result.Phone);
-result.Message = "Looged in successfully";
-
+        result.Message = "Logged in successfully";
     }
     else
     {
-         result.Code = 0;
-         result.Message = "Please Try again";
+        result.Code = 0;
+        result.Message = "Invalid email/phone number or password.";
     }
+    
     return Ok(result);
 }
+
+
+
 
 
 }

@@ -2,15 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
-
-    const users =[{
-        email:"chinku@gmail.com",
-        phoneno:"7680908014",
-        password:"12345678"
-    }];
   const [login, setLogin] = useState({ identifier: '', password: '' });
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
 
   const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,19 +29,22 @@ const LogIn = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      const user = users.find(
-        (user) =>
-          (user.email === login.identifier || user.phoneno === login.identifier) &&
-          user.password === login.password
-      );
+      try {
+        const response = await fetch(`/login?emailOrPhone=${login.identifier}&password=${login.password}`);
+        const result = await response.json();
 
-      if (user) {
-        navigate('/');
-      } else {
-        setErrors({ identifier: 'Invalid email/phone number or password.' });
+        if (result.Code === 1) {
+          // Navigate to the homepage on successful login
+          navigate('/');
+        } else {
+          // Set the error message from the backend
+          setErrors({ identifier: result.Message });
+        }
+      } catch (error) {
+        setErrors({ identifier: 'An error occurred during login. Please try again.' });
       }
     }
   };
@@ -60,10 +56,11 @@ const LogIn = () => {
       logRef.current.focus();
     }
   }, []);
-  const handleToSignUp =(e)=>{
+
+  const handleToSignUp = (e) => {
     e.preventDefault();
     navigate("/signup");
-  }
+  };
 
   return (
     <div className='bg_l'>
@@ -95,7 +92,7 @@ const LogIn = () => {
             <button className='signup-button' type='submit'>Log In</button>
           </div>
         </form>
-        <p className='no_acc'>Don't have an Account ? <span onClick={handleToSignUp} className='reg-now'>Register Now</span></p>
+        <p className='no_acc'>Don't have an Account? <span onClick={handleToSignUp} className='reg-now'>Register Now</span></p>
       </div>
     </div>
   );
