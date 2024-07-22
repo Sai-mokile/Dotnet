@@ -63,21 +63,8 @@ public IActionResult Login(string emailOrPhone, string password)
         HttpContext.Session.SetString("Phone", result.Phone);
         result.Message = "Logged in successfully";
     }
-<<<<<<< HEAD
-    else
-    {
-        result.Code = 0;
-        result.Message = "Invalid email/phone number or password.";
-    }
-    
-=======
-
->>>>>>> df563d4542562423f48ba86e7d4f58887db2a786
     return Ok(result);
 }
-
-
-
 
 
 }
