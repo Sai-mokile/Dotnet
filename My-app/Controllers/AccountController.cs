@@ -64,11 +64,7 @@ public IActionResult Login(string emailOrPhone, string password)
 result.Message = "Looged in successfully";
 
     }
-    else
-    {
-         result.Code = 0;
-         result.Message = "Please Try again";
-    }
+
     return Ok(result);
 }
 

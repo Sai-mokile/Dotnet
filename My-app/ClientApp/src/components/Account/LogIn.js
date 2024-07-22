@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
 
-    const users =[{
-        email:"chinku@gmail.com",
-        phoneno:"7680908014",
-        password:"12345678"
-    }];
+  const users = [{
+    email: "chinku@gmail.com",
+    phoneno: "7680908014",
+    password: "12345678"
+  }];
   const [login, setLogin] = useState({ identifier: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [password, setPassword] = useState('');
+  const [Email, setEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -38,20 +40,23 @@ const LogIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      const user = users.find(
-        (user) =>
-          (user.email === login.identifier || user.phoneno === login.identifier) &&
-          user.password === login.password
-      );
+    let formData = new FormData();
+    formData.append("Email", Email);
+    formData.append("password", password);
 
-      if (user) {
-        navigate('/');
-      } else {
-        setErrors({ identifier: 'Invalid email/phone number or password.' });
-      }
-    }
-  };
+    fetch("api/account/login", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.json)
+      .then(data => {
+        console.log(data);
+
+      })
+
+    navigate("/login");
+  }
+
 
   const logRef = useRef(null);
 
@@ -60,7 +65,7 @@ const LogIn = () => {
       logRef.current.focus();
     }
   }, []);
-  const handleToSignUp =(e)=>{
+  const handleToSignUp = (e) => {
     e.preventDefault();
     navigate("/signup");
   }
@@ -76,22 +81,24 @@ const LogIn = () => {
               type='text'
               name='identifier'
               placeholder='Email or Phone Number'
-              value={login.identifier}
-              onChange={handleChange}
+              // value={login.identifier}
+              defaultValue={Email}
+              onChange={(e) => setEmail(e.target.value)}
               ref={logRef}
             />
             {errors.identifier && <p className='err-msglog'>{errors.identifier}</p>}
-            
+
             <input
               className='input-bo'
               type='password'
               name='password'
               placeholder='Password'
-              value={login.password}
-              onChange={handleChange}
+              defaultValue={password}
+              // value={login.password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {errors.password && <p className='err-msglog'>{errors.password}</p>}
-            
+
             <button className='signup-button' type='submit'>Log In</button>
           </div>
         </form>
