@@ -89,7 +89,52 @@ namespace My_app.BAL
 
     return result;
 }
+
+public string AuthenticateUser(string emailOrPhone, string password)
+{
+    string result = "";
+
+    try
+    {
+        using (SqlConnection conn = new SqlConnection(_connection))
+        {
+            using (SqlCommand cmd = new SqlCommand("AuthenticateUser", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@EmailOrPhone", emailOrPhone);
+                cmd.Parameters.AddWithValue("@Password", password);
+
+                conn.Open();
+                var userExists = (int)cmd.ExecuteScalar();
+
+                if (userExists > 0)
+                {
+                    result = "Login successful";
+                }
+                else
+                {
+                    result = "Invalid email/phone or password";
+                }
+            }
+        }
     }
+    catch (SqlException sqlEx)
+    {
+        // Log the SQL exception (sqlEx) here
+        result = "Database error: " + sqlEx.Message;
+    }
+    catch (Exception ex)
+    {
+        // Log the general exception (ex) here
+        result = "Error: " + ex.Message;
+    }
+
+    return result;
+}
+
+
+    }
+    
 
     
 }

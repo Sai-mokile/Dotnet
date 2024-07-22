@@ -3,9 +3,9 @@ import './custom.css'; // your custom styles
 import { Route, Routes } from 'react-router-dom';
 import { Counter } from "./components/Counter";
 import { Home } from './components/Home';
-import SignUp from './Account/SignUp';
+import SignUp from "./components/Account/SignUp"
 import Header from './components/Header';
-import LogIn from './Account/LogIn';
+ import LogIn from "./components/Account/LogIn"
 
 export default function App() {
 

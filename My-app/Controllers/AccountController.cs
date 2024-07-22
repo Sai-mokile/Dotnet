@@ -45,8 +45,33 @@ public string SignUp(IFormCollection frmcl)
     // Return the result
     return res;
 }
-    
+    [Route("login")]
+[HttpGet]
+public IActionResult Login(string emailOrPhone, string password)
+{
+    try
+    {
+        // Call the AuthenticateUser method and store the result
+        string result = _account.AuthenticateUser(emailOrPhone, password);
+
+        if (result == "Login successful")
+        {
+            return Ok(result); // HTTP 200 OK
+        }
+        else
+        {
+            return Unauthorized(result); // HTTP 401 Unauthorized
+        }
+    }
+    catch (Exception ex)
+    {
+        // Log the exception (ex) here
+        return StatusCode(500, "Internal server error: " + ex.Message); // HTTP 500 Internal Server Error
+    }
 }
+
+}
+
 
 }
 

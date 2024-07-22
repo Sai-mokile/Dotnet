@@ -9,20 +9,13 @@ const SignUp = () => {
     phoneno: ""
   });
 
-  const [name, setName]= useState("");
-  const [email, setEmail]= useState("");
-  const [phone, setPhone]= useState("");
-  const [password, setPassword]= useState("");
-
   const [errors, setErrors] = useState({});
+  const userRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'password') {
-      setForm({ ...form, [name]: value.replace(/\s/g, '') });
-    } else {
-      setForm({ ...form, [name]: value });
-    }
+    setForm({ ...form, [name]: value.replace(/\s/g, '') });
     validateField(name, value);
   };
 
@@ -73,43 +66,43 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const navigate = useNavigate();
-
   const submitHandler = (e) => {
     e.preventDefault();
 
+    if (!validate()) return;
+
     let formData = new FormData();
-    formData.append("name", name);
-    formData.append("Email", email);
-    formData.append("phone", phone);
-    formData.append("password", password);
+    formData.append("name", form.username);
+    formData.append("Email", form.email);
+    formData.append("phone", form.phoneno);
+    formData.append("password", form.password);
 
     fetch("api/account/signup", {
-        method: "POST",
-        body: formData
+      method: "POST",
+      body: formData
     })
-    .then(response => response.text()) // Adjust this based on your expected response type (text, json, etc.)
-    .then(data => {
-       alert(data);
+      .then(response => response.text()) // Adjust this based on your expected response type (text, json, etc.)
+      .then(data => {
+        alert(data);
         // Handle success - maybe display a message or redirect
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error("Error:", error);
         // Handle error - maybe display an error message
-    });
-};
-
-  const userRef = useRef(null);
+      });
+      navigate("/login");
+  };
 
   useEffect(() => {
     if (userRef.current) {
       userRef.current.focus();
     }
   }, []);
-  const handleLogIn =(e)=>{
+
+  const handleLogIn = (e) => {
     e.preventDefault();
     navigate("/login");
-  }
+  };
 
   return (
     <div>
@@ -121,13 +114,13 @@ const SignUp = () => {
           <form onSubmit={submitHandler} autoComplete='off'>
             <div className='form-inputs'>
               <input className='input-box'
-                type='text' name='username' value={form.username} placeholder='Username' ref={userRef} onChange={(e)=>setName(e.target.value)} />
+                type='text' name='username' value={form.username} placeholder='Username' ref={userRef} onChange={handleChange} />
               <p className='err-msg'>{errors.username}</p>
-              <input className='input-box' type='email' name='email' placeholder='Email' value={form.email} onChange={(e)=>setEmail(e.target.value)} />
+              <input className='input-box' type='email' name='email' placeholder='Email' value={form.email} onChange={handleChange} />
               <p className='err-msg'>{errors.email}</p>
-              <input className='input-box' type='tel' name='phoneno' value={form.phoneno} pattern="[0-9]*" placeholder='Phone Number' onChange={(e)=>setPhone(e.target.value)}/>
+              <input className='input-box' type='tel' name='phoneno' value={form.phoneno} pattern="[0-9]*" placeholder='Phone Number' onChange={handleChange} />
               <p className='err-msg'>{errors.phoneno}</p>
-              <input className='input-box' placeholder='Create Password' type='password' name='password' value={form.password} onChange={(e)=>setPassword(e.target.value)} />
+              <input className='input-box' placeholder='Create Password' type='password' name='password' value={form.password} onChange={handleChange} />
               <p className='err-msg'>{errors.password}</p>
               <button className='signup-button'>Sign Up</button>
             </div>
