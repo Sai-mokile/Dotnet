@@ -54,8 +54,8 @@ public string SignUp(IFormCollection frmcl)
 [HttpPost]
 public IActionResult Login(IFormCollection frmcl)
 {
-    string emailOrPhone = frmcl["emailOrPhone"]
-    string password = frmcl["password"]
+            string emailOrPhone = frmcl["emailOrPhone"];
+            string password = frmcl["password"];
     var result = _account.AuthenticateUser(emailOrPhone, password);
 
     if (result.Code == 1)
